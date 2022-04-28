@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutCart extends StatelessWidget {
   double sum;
   CheckOutCart({required this.sum});
+  var prefs;
+  final value = TextEditingController();
+  _getData(QuantityInput) async {
+    prefs = await SharedPreferences.getInstance();
+    var value = prefs.getInt();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,10 @@ class CheckOutCart extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0.0),
                 side: BorderSide(color: Colors.green)),
-            onPressed: () {},
+            onPressed: () async {
+              prefs = await SharedPreferences.getInstance();
+              prefs.setInt('', value);
+            },
             color: Colors.green,
             textColor: Colors.white,
             child:

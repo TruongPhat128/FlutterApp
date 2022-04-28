@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:foodnowapp/cart/components/checkoutcart.dart';
 import 'package:foodnowapp/model/carts.dart';
 import 'package:foodnowapp/model/products.dart';
+import 'package:quantity_input/quantity_input.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -12,6 +14,13 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   List<Products> cartdetails = Cart().getCart();
   double sum = 0.0;
+  int simpleIntInput = 0;
+  var prefs;
+  final value = TextEditingController();
+  _getData(QuantityInput) async {
+    prefs = await SharedPreferences.getInstance();
+    var value = prefs.getInt();
+  }
 
   @override
   void initState() {
@@ -49,7 +58,10 @@ class _BodyState extends State<Body> {
                           });
                         },
                       ),
-                      Divider()
+                      QuantityInput(
+                          value: simpleIntInput,
+                          onChanged: (value) => setState(() => simpleIntInput =
+                              int.parse(value.replaceAll(',', '')))),
                     ],
                   );
                 }),
