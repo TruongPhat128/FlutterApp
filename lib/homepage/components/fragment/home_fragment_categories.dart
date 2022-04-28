@@ -4,9 +4,11 @@ import 'package:foodnowapp/model/catagories.dart';
 import 'package:foodnowapp/category/categorypage.dart';
 
 class CategoriesStore extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     final categories = Categories.init();
+    
 
     return Padding(
       padding: const EdgeInsets.all(4.0),

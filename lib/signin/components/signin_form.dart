@@ -30,6 +30,7 @@ class _SignInFormState extends State<SignInForm> {
     fToast = FToast();
     fToast.init(context);
     _getData();
+    _checkData();
   }
 
   _getData() async {
@@ -39,6 +40,15 @@ class _SignInFormState extends State<SignInForm> {
       password.text = prefs.getString('password');
       _value = prefs.getBool('check');
       //print(_value.toString());
+    }
+  }
+
+  _checkData() async {
+    prefs = await SharedPreferences.getInstance();
+    var username_prefs = prefs.getString('username');
+    var password_prefs = prefs.getString('password');
+    if (username.text == username_prefs && password.text == password_prefs) {
+      Navigator.pushNamed(context, HomePage.routeName);
     }
   }
 

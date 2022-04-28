@@ -23,16 +23,15 @@ class _BodyState extends State<Body> {
     List<Widget> screen = [
       HomeDetail(),
       FavoriteDetail(Utilities.data),
-      // NotificationDetail(),
+      NotificationPage(),
       AccountDetail()
     ];
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: flag ? HomeHeader() : MenuHeader(),
-      ),
+      appBar: flag
+          ? AppBar(automaticallyImplyLeading: false, title: HomeHeader())
+          : null,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: selectIndex,
@@ -56,23 +55,18 @@ class _BodyState extends State<Body> {
             label: 'Favorite',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Account',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
             label: 'Notification',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Account',
           ),
         ],
       ),
       body: SafeArea(
         child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            screen[selectIndex]
-          ],
+          children: [screen[selectIndex]],
         ),
       ),
     );

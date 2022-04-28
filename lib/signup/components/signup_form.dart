@@ -57,9 +57,9 @@ class _SignUpFormState extends State<SignUpForm> {
                   if (_formKey.currentState!.validate()) {
                     _savaData();
                     //thay doi code
-                    // Navigator.pop(context,
-                    //     User(username: email.text, password: conform.text));
-                    Navigator.pop(context);
+                    Navigator.pop(context,
+                        User(username: email.text, password: conform.text));
+                    // Navigator.pop(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

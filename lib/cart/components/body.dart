@@ -80,7 +80,7 @@ class CartItem extends StatelessWidget {
             child: Image.asset(product.image.toString())),
         Expanded(child: Text(product.title.toString())),
         Expanded(child: Text(product.price.toString())),
-        Icon(Icons.delete_outlined)
+        Icon(Icons.delete_outlined),
       ]),
     );
   }
