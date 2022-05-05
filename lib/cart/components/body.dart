@@ -14,7 +14,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   List<Products> cartdetails = Cart().getCart();
   double sum = 0.0;
-  int simpleIntInput = 0;
   var prefs;
   final value = TextEditingController();
   _getData(QuantityInput) async {
@@ -58,10 +57,7 @@ class _BodyState extends State<Body> {
                           });
                         },
                       ),
-                      QuantityInput(
-                          value: simpleIntInput,
-                          onChanged: (value) => setState(() => simpleIntInput =
-                              int.parse(value.replaceAll(',', '')))),
+                      Divider(),
                     ],
                   );
                 }),
@@ -77,7 +73,6 @@ class _BodyState extends State<Body> {
 
 class CartItem extends StatelessWidget {
   Products product;
-
   CartItem({required this.product});
 
   @override
@@ -92,8 +87,29 @@ class CartItem extends StatelessWidget {
             child: Image.asset(product.image.toString())),
         Expanded(child: Text(product.title.toString())),
         Expanded(child: Text(product.price.toString())),
+        QuantityInt(),
         Icon(Icons.delete_outlined),
       ]),
+    );
+  }
+}
+
+class QuantityInt extends StatefulWidget {
+  const QuantityInt({Key? key}) : super(key: key);
+
+  @override
+  State<QuantityInt> createState() => _QuantityIntState();
+}
+
+class _QuantityIntState extends State<QuantityInt> {
+  int simpleIntInput = 1;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: QuantityInput(
+          value: simpleIntInput,
+          onChanged: (value) => setState(
+              () => simpleIntInput = int.parse(value.replaceAll('.', '')))),
     );
   }
 }

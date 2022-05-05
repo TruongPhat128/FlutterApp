@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:foodnowapp/homepage/components/fragment/notification_fragment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutCart extends StatelessWidget {
@@ -41,8 +42,7 @@ class CheckOutCart extends StatelessWidget {
                 borderRadius: BorderRadius.circular(0.0),
                 side: BorderSide(color: Colors.green)),
             onPressed: () async {
-              prefs = await SharedPreferences.getInstance();
-              prefs.setInt('', value);
+              Navigator.pushNamed(context, NotificationPage.routeName);
             },
             color: Colors.green,
             textColor: Colors.white,
