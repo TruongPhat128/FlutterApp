@@ -7,8 +7,9 @@ import 'package:foodnowapp/homepage/homepage.dart';
 import 'package:foodnowapp/cart/detail/productpage.dart';
 import 'package:foodnowapp/category/categorypage.dart';
 import 'package:foodnowapp/homepage/components/fragment/home_fragment.dart';
-
+import 'package:foodnowapp/homepage/components/success.dart';
 import 'cart/cartpage.dart';
+import 'package:foodnowapp/search/searchpage.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashPage.routeName: (context) => SplashPage(),
@@ -20,4 +21,6 @@ final Map<String, WidgetBuilder> routes = {
   CategoryPage.routeName: (context) => CategoryPage(),
   HomeDetail.routeName: (context) => HomeDetail(),
   NotificationPage.routeName: (context) => NotificationPage(),
+  ThankYouPage.routeName: (context) => ThankYouPage(title: "thanks"),
+  FilterLocalListPage.routeName: (context) => FilterLocalListPage(),
 };

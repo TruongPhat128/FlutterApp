@@ -3,18 +3,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:foodnowapp/model/products.dart';
 import 'package:foodnowapp/signin/components/signin_form.dart';
 
+import '../../../cart/components/body.dart';
 import '../../../model/carts.dart';
 
-class NotificationPage extends StatelessWidget {
-  List<Products> cartdetails = Cart().getCart();
-  double sum = 0.0;
+class NotificationPage extends StatefulWidget {
+  @override
+  _NotificationPageState createState() => _NotificationPageState();
   static String routeName = "./notification";
+}
+
+class _NotificationPageState extends State<NotificationPage> {
+  List<CartItem> cartdetails = Cart().getCart().toList();
+  double sum = 0.0;
 
   @override
   void initState() {
     // TODO: implement initState
-    cartdetails.forEach((product) {
-      sum = sum + product.price!.toInt();
+    cartdetails.forEach((item) {
+      sum = sum + item.quantity * item.product.price!.toDouble();
     });
   }
 
@@ -32,16 +38,17 @@ class NotificationPage extends StatelessWidget {
                   return Column(
                     children: [
                       GestureDetector(
-                        child: CartItem(
-                          product: cartdetails[index],
+                        child: Item(
+                          product: cartdetails[index].product,
+                          quantity: cartdetails[index].quantity,
                         ),
                         onTap: () {},
                       ),
-                      Divider(),
                     ],
                   );
                 }),
           ),
+          Expanded(child: Prices(sum: sum)),
           Expanded(
               child: Text("Đang chờ giao hàng",
                   style: TextStyle(
@@ -53,9 +60,11 @@ class NotificationPage extends StatelessWidget {
   }
 }
 
-class CartItem extends StatelessWidget {
+class Item extends StatelessWidget {
   Products product;
-  CartItem({required this.product});
+  int quantity;
+
+  Item({required this.product, required this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +77,41 @@ class CartItem extends StatelessWidget {
             height: 100,
             child: Image.asset(product.image.toString())),
         Expanded(child: Text(product.title.toString())),
-        Expanded(child: Text("Price: ${product.price.toString()}")),
+        Expanded(child: Text("Giá: ${product.price.toString()}")),
+        Expanded(child: Text("Số lượng: ${quantity.toString()}")),
       ]),
+    );
+  }
+}
+
+class Prices extends StatelessWidget {
+  double sum;
+  Prices({required this.sum});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          child: FlatButton(
+            height: 50,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0),
+                side: BorderSide(color: Colors.green)),
+            color: Colors.white,
+            textColor: Colors.green,
+            onPressed: () {},
+            child: Text(
+              "Tổng tiền: ${sum}",
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontSize: 14.0,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

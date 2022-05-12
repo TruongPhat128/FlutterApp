@@ -36,7 +36,7 @@ dependencies:
   form: ^0.0.5
   http: ^0.13.4
   quantity_input: ^1.0.2
-
+  flutter_tags: "^0.4.9+1"
 
 dev_dependencies:
   flutter_test:

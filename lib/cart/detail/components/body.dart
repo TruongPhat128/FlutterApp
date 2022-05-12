@@ -6,13 +6,20 @@ import 'package:foodnowapp/model/catagories.dart';
 import 'package:quiver/iterables.dart';
 import 'package:quantity_input/quantity_input.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   Products product;
   Body({required this.product});
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   final cate = Categories.init();
+  int simpleIntInput = 1;
   @override
   Widget build(BuildContext context) {
-    var category = cate.firstWhere((item) => item.id == product.cateID);
+    var category = cate.firstWhere((item) => item.id == widget.product.cateID);
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -20,7 +27,7 @@ class Body extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              "Title: ${product.title}",
+              "Title: ${widget.product.title}",
               style: TextStyle(fontSize: 20),
             ),
             flex: 1,
@@ -28,21 +35,25 @@ class Body extends StatelessWidget {
           SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 200,
-              child: Image.asset(product.image.toString())),
+              child: Image.asset(widget.product.image.toString())),
           SizedBox(
             height: 20,
           ),
           SizedBox(
-            child: Text("Description: ${product.description}"),
+            child: Text("Description: ${widget.product.description}"),
             height: 180,
           ),
           Container(
               alignment: Alignment.center,
               child: SizedBox(
-                child: QuantityInt(),
+                child: QuantityInput(
+                  value: simpleIntInput,
+                  onChanged: (value) => setState(() =>
+                      simpleIntInput = int.parse(value.replaceAll('.', ''))),
+                ),
               )),
           Expanded(
-            child: Text("Price: ${product.price}",
+            child: Text("Price: ${widget.product.price}",
                 style: TextStyle(
                   fontSize: 20,
                 )),
@@ -56,7 +67,8 @@ class Body extends StatelessWidget {
             flex: 1,
           ),
           AddProductToCart(
-            product: product,
+            product: widget.product,
+            quantity: simpleIntInput,
           )
         ],
       ),
@@ -75,11 +87,6 @@ class _QuantityIntState extends State<QuantityInt> {
   int simpleIntInput = 1;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: QuantityInput(
-          value: simpleIntInput,
-          onChanged: (value) => setState(
-              () => simpleIntInput = int.parse(value.replaceAll('.', '')))),
-    );
+    return Container();
   }
 }

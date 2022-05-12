@@ -77,7 +77,7 @@ class ProductItem extends StatelessWidget {
         children: [
           Image.asset(
             product.image.toString(),
-            fit: BoxFit.fill,
+            fit: BoxFit.fitWidth,
           ),
           Row(
             children: [
